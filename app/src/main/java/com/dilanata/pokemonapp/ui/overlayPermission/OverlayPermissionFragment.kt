@@ -1,23 +1,24 @@
 package com.dilanata.pokemonapp.ui.overlayPermission
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startForegroundService
-import androidx.fragment.app.Fragment
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.dilanata.pokemonapp.R
 import com.dilanata.pokemonapp.base.BaseFragment
 import com.dilanata.pokemonapp.databinding.FragmentOverlayPermissionBinding
+import com.dilanata.pokemonapp.extension.hide
 import com.dilanata.pokemonapp.extension.navigateSafe
-import com.dilanata.pokemonapp.service.ForegroundService
-import com.dilanata.pokemonapp.ui.pokemons.adapter.OnClickListener
+import com.dilanata.pokemonapp.extension.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.util.*
 
 @Suppress("COMPATIBILITY_WARNING")
 @ExperimentalCoroutinesApi
@@ -27,9 +28,25 @@ class OverlayPermissionFragment : BaseFragment<FragmentOverlayPermissionBinding>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        checkConnecttion()
         binding.btnOverlay.setOnClickListener {
                 checkOverlayPermission()
                 startService()
+        }
+    }
+    fun checkConnecttion () {
+        if (Settings.System.getInt(
+                requireContext().getContentResolver(),
+                Settings.System.AIRPLANE_MODE_ON,
+                0
+            ) == 1
+        ) {
+            binding.llItemConnection.show()
+            binding.btnOverlay.hide()
+        } else {
+            binding.llItemConnection.hide()
+            binding.btnOverlay.show()
         }
     }
     // method for starting the service

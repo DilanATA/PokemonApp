@@ -14,5 +14,8 @@
             android:layout_centerInParent="true"
             android:text="@string/give_me_overlay_permission" />
 
+        <include layout="@layout/item_no_connection" android:id="@+id/ll_itemConnection"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 </layout>
