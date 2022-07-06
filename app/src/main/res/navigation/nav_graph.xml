@@ -9,7 +9,11 @@
         android:id="@+id/pokemonsFragment"
         android:name="com.dilanata.pokemonapp.ui.pokemons.PokemonsFragment"
         android:label="fragment_pokemons"
-        tools:layout="@layout/fragment_pokemons" />
+        tools:layout="@layout/fragment_pokemons" >
+        <action
+            android:id="@+id/action_pokemonsFragment_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/overlayPermissionFragment"
         android:name="com.dilanata.pokemonapp.ui.overlayPermission.OverlayPermissionFragment"
@@ -19,4 +23,8 @@
             android:id="@+id/action_overlayPermissionFragment_to_pokemonsFragment"
             app:destination="@id/pokemonsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.dilanata.pokemonapp.ui.pokemonDetail.PokemonDetailFragment"
+        android:label="PokemonDetailFragment" />
 </navigation>

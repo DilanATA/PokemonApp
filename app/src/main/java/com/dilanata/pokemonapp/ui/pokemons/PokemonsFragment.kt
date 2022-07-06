@@ -14,6 +14,7 @@ import com.dilanata.pokemonapp.data.Status
 import com.dilanata.pokemonapp.databinding.FragmentPokemonsBinding
 import com.dilanata.pokemonapp.extension.hide
 import com.dilanata.pokemonapp.extension.makeToast
+import com.dilanata.pokemonapp.extension.navigateSafe
 import com.dilanata.pokemonapp.extension.show
 import com.dilanata.pokemonapp.ui.pokemons.adapter.OnClickListener
 import com.dilanata.pokemonapp.ui.pokemons.adapter.PokemonAdapter
@@ -77,6 +78,7 @@ OnClickListener{
     }
     override fun onClickForDetail(pokemonResult: Result) {
         makeToast(pokemonResult.name!!)
+        navigateSafe(R.id.action_pokemonsFragment_to_pokemonDetailFragment)
     }
 
 }

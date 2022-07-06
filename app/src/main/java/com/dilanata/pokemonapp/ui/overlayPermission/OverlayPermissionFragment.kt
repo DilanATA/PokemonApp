@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import com.dilanata.pokemonapp.R
 import com.dilanata.pokemonapp.base.BaseFragment
 import com.dilanata.pokemonapp.databinding.FragmentOverlayPermissionBinding
+import com.dilanata.pokemonapp.extension.navigateSafe
 import com.dilanata.pokemonapp.service.ForegroundService
+import com.dilanata.pokemonapp.ui.pokemons.adapter.OnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -25,8 +27,10 @@ class OverlayPermissionFragment : BaseFragment<FragmentOverlayPermissionBinding>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkOverlayPermission()
-        startService()
+        binding.btnOverlay.setOnClickListener {
+                checkOverlayPermission()
+                startService()
+        }
     }
     // method for starting the service
     fun startService() {
@@ -36,7 +40,8 @@ class OverlayPermissionFragment : BaseFragment<FragmentOverlayPermissionBinding>
             if (Settings.canDrawOverlays(requireContext())) {
                 // start the service based on the android version
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(requireContext(), Intent(requireContext(), ForegroundService::class.java))
+                    navigateSafe(R.id.action_overlayPermissionFragment_to_pokemonsFragment)
+                  //  startForegroundService(requireContext(), Intent(requireContext(), ForegroundService::class.java))
                 } else {
                     startService()
                 }
